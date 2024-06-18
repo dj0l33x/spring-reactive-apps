@@ -1,0 +1,21 @@
+name: Build
+
+on:
+  push:
+
+jobs:
+  semver-mgmt-build:
+    name: Build ${{ github.ref_name }} ${{ github.ref_type }} in ${{ github.repository }} repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: liberica
+          java-version: 21
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2.11.1
+      - name: Gradle build
+        run: ./gradlew build
